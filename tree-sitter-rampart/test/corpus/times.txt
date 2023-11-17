@@ -1,0 +1,57 @@
+=====
+Seconds
+=====
+:00 0
+:01 0
+:02 0
+:59 0
+
+
+---
+(source_file
+  (series
+    (point_list
+      (point (ss) (integer))
+      (point (ss) (integer))
+      (point (ss) (integer))
+      (point (ss) (integer)))))
+
+=====
+Minutes, seconds
+=====
+:00:00 0
+01:01  0
+2:02   0
+3:03   0
+59:59  0
+
+
+---
+(source_file
+  (series
+    (point_list
+      (point (mm_ss) (integer))
+      (point (mm_ss) (integer))
+      (point (mm_ss) (integer))
+      (point (mm_ss) (integer))
+      (point (mm_ss) (integer)))))
+
+=====
+Hours, minutes, seconds
+=====
+00:00:00 0
+1:01:01  0
+02:02:02 0
+13:03:03 0
+23:59:59 0
+
+
+---
+(source_file
+  (series
+    (point_list
+      (point (hh_mm_ss) (integer))
+      (point (hh_mm_ss) (integer))
+      (point (hh_mm_ss) (integer))
+      (point (hh_mm_ss) (integer))
+      (point (hh_mm_ss) (integer)))))

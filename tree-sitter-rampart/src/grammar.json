@@ -1,0 +1,187 @@
+{
+  "name": "rampart",
+  "rules": {
+    "source_file": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_newline"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "series"
+          }
+        }
+      ]
+    },
+    "_newline": {
+      "type": "STRING",
+      "value": "\n"
+    },
+    "_terminator": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\n"
+        },
+        {
+          "type": "STRING",
+          "value": "\u0000"
+        }
+      ]
+    },
+    "series": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "points",
+          "content": {
+            "type": "SYMBOL",
+            "name": "point_list"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_terminator"
+        }
+      ]
+    },
+    "point_list": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "point"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
+          }
+        ]
+      }
+    },
+    "point": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "time",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_time"
+          }
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "STRING",
+            "value": " "
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "power",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_power"
+          }
+        }
+      ]
+    },
+    "_time": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "m"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "hh_mm_ss"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mm_ss"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ss"
+        }
+      ]
+    },
+    "m": {
+      "type": "PATTERN",
+      "value": "[0-5]?[0-9]"
+    },
+    "hh_mm_ss": {
+      "type": "PATTERN",
+      "value": "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]"
+    },
+    "mm_ss": {
+      "type": "PATTERN",
+      "value": ":?[0-5]?[0-9]:[0-5][0-9]"
+    },
+    "ss": {
+      "type": "PATTERN",
+      "value": ":[0-5][0-9]"
+    },
+    "_power": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "integer"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "decimal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "exponent"
+        }
+      ]
+    },
+    "integer": {
+      "type": "PATTERN",
+      "value": "-?\\d(_?\\d)*"
+    },
+    "decimal": {
+      "type": "PATTERN",
+      "value": "-?(\\d(_?\\d)*)?\\.(_?\\d)*"
+    },
+    "exponent": {
+      "type": "PATTERN",
+      "value": "-?(\\d(_?\\d)*)?(\\.(_?\\d)*)?[eE]-?\\d(_?\\d)*"
+    },
+    "comment": {
+      "type": "PATTERN",
+      "value": "\\s*;.*"
+    }
+  },
+  "extras": [
+    {
+      "type": "SYMBOL",
+      "name": "comment"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [
+    "ReferenceError",
+    "ReferenceError"
+  ],
+  "supertypes": []
+}
+

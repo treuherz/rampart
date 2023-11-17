@@ -1,0 +1,99 @@
+========
+Integers
+========
+0 0
+1 1
+2 -2
+3 03
+
+
+---
+(source_file
+  (series
+    (point_list
+      (point (m) (integer))
+      (point (m) (integer))
+      (point (m) (integer))
+      (point (m) (integer)))))
+
+========
+Decimals
+========
+0     0.
+1     .1
+2    0.2
+3  03.30
+4    -4.
+5    -.5
+6   -0.6
+7 -07.70
+
+
+---
+(source_file
+  (series
+    (point_list
+      (point (m) (decimal))
+      (point (m) (decimal))
+      (point (m) (decimal))
+      (point (m) (decimal))
+      (point (m) (decimal))
+      (point (m) (decimal))
+      (point (m) (decimal))
+      (point (m) (decimal)))))
+
+=========
+Exponents
+=========
+0    0e0
+1   1e10
+2    2E2
+3   3e-3
+4  4.4e4
+5   .5e5
+6  6.e-6
+7  -7e-7
+
+
+---
+(source_file
+  (series
+    (point_list
+      (point (m) (exponent))
+      (point (m) (exponent))
+      (point (m) (exponent))
+      (point (m) (exponent))
+      (point (m) (exponent))
+      (point (m) (exponent))
+      (point (m) (exponent))
+      (point (m) (exponent)))))
+
+===========
+Underscores
+===========
+1  1_1
+2  2_222_222
+3  3.3_3
+4  4_4.4
+5  5e5_5
+11  -1_1
+12  -2_222_222
+13  -3.3_3
+14  -4_4.4
+15  5e-5_5
+
+
+---
+(source_file
+  (series
+    (point_list
+      (point (m) (integer))
+      (point (m) (integer))
+      (point (m) (decimal))
+      (point (m) (decimal))
+      (point (m) (exponent))
+      (point (m) (integer))
+      (point (m) (integer))
+      (point (m) (decimal))
+      (point (m) (decimal))
+      (point (m) (exponent)))))

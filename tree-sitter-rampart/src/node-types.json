@@ -1,0 +1,138 @@
+[
+  {
+    "type": "point",
+    "named": true,
+    "fields": {
+      "power": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "decimal",
+            "named": true
+          },
+          {
+            "type": "exponent",
+            "named": true
+          },
+          {
+            "type": "integer",
+            "named": true
+          }
+        ]
+      },
+      "time": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "hh_mm_ss",
+            "named": true
+          },
+          {
+            "type": "m",
+            "named": true
+          },
+          {
+            "type": "mm_ss",
+            "named": true
+          },
+          {
+            "type": "ss",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "point_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "point",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "series",
+    "named": true,
+    "fields": {
+      "points": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "point_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "series",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "\u0000",
+    "named": false
+  },
+  {
+    "type": "\n",
+    "named": false
+  },
+  {
+    "type": " ",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "decimal",
+    "named": true
+  },
+  {
+    "type": "exponent",
+    "named": true
+  },
+  {
+    "type": "hh_mm_ss",
+    "named": true
+  },
+  {
+    "type": "integer",
+    "named": true
+  },
+  {
+    "type": "m",
+    "named": true
+  },
+  {
+    "type": "mm_ss",
+    "named": true
+  },
+  {
+    "type": "ss",
+    "named": true
+  }
+]
