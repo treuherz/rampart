@@ -1,69 +1,76 @@
-import {useState} from 'react';
-import Editor from './Editor.jsx'
-import {Handler as TooltipHandler} from 'vega-tooltip';
-import {VegaLite} from 'react-vega';
-import './App.css'
-import {parse, queryPointList, queryPoint} from './parser.js';
+import { useState } from "react";
+import Editor from "./Editor.jsx";
+import { VegaLite } from "react-vega";
+import "./App.css";
+import { parse, queryPoint, queryPointList } from "./parser.js";
 
 function App() {
-    const spec = {
-        width: 600,
-        height: 300,
-        mark: {type: 'line', tooltip: true},
-        encoding: {
-            x: {field: 'time', type: 'temporal', timeUnit: 'minutes'},
-            y: {field: 'power', type: 'quantitative'},
+  const spec = {
+    width: "container",
+    height: "container",
+    mark: {
+      type: "line",
+      tooltip: true,
+    },
+    encoding: {
+      x: {
+        field: "time",
+        type: "temporal",
+        timeUnit: "minutes",
+        scale: {
+          domain: [{ minutes: 0 }, { minutes: 30 }],
         },
-        data: {name: "A"}
-    };
+      },
+      y: { field: "power", type: "quantitative" },
+    },
+    data: { name: "A" },
+  };
 
-    const [data, setData] = useState({});
+  const [data, setData] = useState({});
 
-    function handleChange(content) {
-        let parsed = parseContent(content);
-        setData(parsed);
+  function handleChange(content) {
+    let parsed = parseContent(content);
+    console.log(parsed);
+    setData(parsed);
+  }
+
+  function parseContent(content) {
+    const tree = parse(content + "\n\n");
+    const pointLists = queryPointList.captures(tree.rootNode);
+
+    if (pointLists.length === 0) {
+      console.log("no point lists");
+      return;
     }
 
+    let pointListNode = pointLists[0].node;
+    let pointCaptures = queryPoint.captures(pointListNode);
 
-    function parseContent(content) {
-        const tree = parse(content + "\n\n");
-        const pointLists = queryPointList.captures(tree.rootNode);
+    let points = [];
+    for (let pointCapture of pointCaptures) {
+      let pointNode = pointCapture.node;
 
-        if (pointLists.length === 0) {
-            console.log("no point lists");
-            return;
-        }
+      let timeText = pointNode.childForFieldName("time").text;
+      // TODO: parse properly
+      // let timeMinutes = Number.parseInt(timeText);
+      let timeInput = `2000-01-01T00:${timeText.padStart(2, "0")}:00Z`;
 
-        let pointListNode = pointLists[0].node;
-        let pointCaptures = queryPoint.captures(pointListNode)
+      let powerText = pointNode.childForFieldName("power").text;
+      // TODO: parse properly
+      let powerMW = Number.parseFloat(powerText);
 
-        let points = [];
-        for (let pointCapture of pointCaptures) {
-            let pointNode = pointCapture.node;
-
-            let timeText = pointNode.childForFieldName("time").text;
-            // TODO: parse properly
-            // let timeMinutes = Number.parseInt(timeText);
-            let timeInput = `0000-00-00 00:${timeText.padStart(2, '0')}:00`
-
-            let powerText = pointNode.childForFieldName("power").text;
-            // TODO: parse properly
-            let powerMW = Number.parseFloat(powerText);
-
-            points.push({time: timeInput, power: powerMW});
-        }
-
-        return {"A": points}
+      points.push({ time: timeInput, power: powerMW });
     }
 
-    return (<>
-        <Editor onContentChange={handleChange}/>
-        <VegaLite
-            spec={spec}
-            data={data}
-            renderer='svg'
-        />
-    </>);
+    return { A: points };
+  }
+
+  return (
+    <>
+      <Editor onContentChange={handleChange} />
+      <VegaLite spec={spec} data={data} renderer="svg" />
+    </>
+  );
 }
 
-export default App
+export default App;
